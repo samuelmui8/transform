@@ -1,3 +1,13 @@
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AuthStack from './navigation/AuthStack';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <AuthStack />
+
 import { StatusBar } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -19,7 +29,8 @@ export default function App() {
       </NavigationContainer>
     </SafeAreaProvider>
   );
-}
+};
+
 
 const styles = StyleSheet.create({
   container: {
