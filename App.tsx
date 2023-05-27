@@ -1,11 +1,5 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AuthStack from './navigation/AuthStack';
-
-const Stack = createNativeStackNavigator();
+import AuthStack from "./screens/authentication/AuthStack";
 
 export default function App() {
-  return (
-    <AuthStack />
-  );
-};
-
+  return <AuthStack />;
+}
