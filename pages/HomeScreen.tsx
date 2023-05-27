@@ -1,10 +1,10 @@
 import { Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import { auth, database } from '../FirebaseConfig';
 
 const HomeScreen = ({ navigation }) => {
   let name;
-  const auth = getAuth();
   const user = auth.currentUser;
   if (user) {
     name = user.displayName;

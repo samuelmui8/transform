@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
 import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { auth } from '../FirebaseConfig';
 
 const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const auth = FIREBASE_AUTH;
+
+    const handleLogin = () => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then(userCredential => {
+            // const user = userCredential.user;
+            navigation.navigate('Home');
+        })
+        .catch(error => alert(error.message));
+    }
 
     const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
                 updateProfile(user, { displayName: name })
-                    .then(() => {
-                        // console.log("updated " + user.displayName)
-                        signInWithEmailAndPassword(auth, email, password)
-                            .then(() => {
-                                navigation.navigate('Home');
-                            })
-                            .catch(error => alert(error.message))
-                    })
+                    .then(handleLogin)
                     .catch(error => alert(error.message))
             })
             .catch(error => alert(error.message));
