@@ -3,7 +3,7 @@ import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TodoList } from "../components/TodoList/TodoList";
 
-export const TodoListScreen = () => {
+export const TodoListScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
 
   return (

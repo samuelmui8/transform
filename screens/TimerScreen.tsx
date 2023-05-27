@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 
-export default function HomeScreen() {
+export const TimerScreen: React.FC = () => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 
@@ -28,7 +28,7 @@ export default function HomeScreen() {
       <StatusBar translucent={true} />
     </View>
   );
-}
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
