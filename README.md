@@ -1,13 +1,20 @@
-# transform
-Transform is an NUS orbital project that aims to improve the productivity of students.
-<br>
+# Transform
+Transform is an NUS orbital project that aims to improve the productivity of students. (_Apollo 11_)
 
-**To run the app locally**
-<br>
-Run `npm install` then restart your IDE.
-<br>
-Run `npm start` then choose where you want to open the application!
+## Features
+- [x] To-do List (Milestone 1)
+- [x] Focus Mode Timer (Milestone 1)
+- [ ] Nutrition & Fitness Tracker
+- [ ] Calender
+- [ ] Social Aspects
+- [ ] Achievements
+- [ ] Widgets
 
-**To export app as apk**
-<br>
-Run `npx eas build -p android --profile preview`.
+## Getting Started
+1. Install the current LTS version of Node.js. The current version (usually the version one greater than the current LTS) may also work, but if you encounter issues, use v18.16.0
+2. Run `npm install` then restart your IDE.
+3. Run `npm start` then choose where you want to open the application!
+
+### To export app as apk
+1. Run `npx eas build -p android --profile preview`
+
