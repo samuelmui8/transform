@@ -8,4 +8,6 @@ Run `npm install` then restart your IDE.
 <br>
 Run `npm start` then choose where you want to open the application!
 
-
+**To export app as apk**
+<br>
+Run `npx eas build -p android --profile preview`.
