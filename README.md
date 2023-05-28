@@ -2,6 +2,7 @@
 Transform is a NUS orbital project that aims to improve the productivity of students. (_Apollo 11_)
 
 ## Features
+- [x] Login and Authentication
 - [x] To-do List (Milestone 1)
 - [x] Focus Mode Timer (Milestone 1)
 - [ ] Nutrition & Fitness Tracker
