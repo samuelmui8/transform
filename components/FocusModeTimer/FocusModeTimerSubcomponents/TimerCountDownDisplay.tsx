@@ -9,9 +9,9 @@ export const TimerCountDownDisplay: React.FC<Props> = ({ timerDate }) => {
   return (
     <View>
       <Text style={styles.timerCountDownText}>
-        {timerDate.getHours().toString().padStart(2, "0")}:
-        {timerDate.getMinutes().toString().padStart(2, "0")}:
-        {timerDate.getSeconds().toString().padStart(2, "0")}
+        {timerDate.getUTCHours().toString().padStart(2, "0")}:
+        {timerDate.getUTCMinutes().toString().padStart(2, "0")}:
+        {timerDate.getUTCSeconds().toString().padStart(2, "0")}
       </Text>
     </View>
   );
