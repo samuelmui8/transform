@@ -1,5 +1,5 @@
-# Transform
-Transform is an NUS orbital project that aims to improve the productivity of students. (_Apollo 11_)
+# ⚡Transform⚡
+Transform is a NUS orbital project that aims to improve the productivity of students. (_Apollo 11_)
 
 ## Features
 - [x] To-do List (Milestone 1)
