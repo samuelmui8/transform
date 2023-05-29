@@ -1,5 +1,6 @@
 # ⚡Transform⚡
 Transform is a NUS orbital project that aims to improve the productivity of students. (_Apollo 11_)
+Github Link: https://github.com/samuelmui8/transform
 
 ## Features
 - [x] Login and Authentication (Milestone 1)
@@ -19,7 +20,6 @@ Transform is a NUS orbital project that aims to improve the productivity of stud
 ### To export app as apk
 1. Run `npx eas build -p android --profile preview`
 
-#### To try out our app
-1. Download the apk from https://drive.google.com/file/d/1Y2eUA-rDjazgbq-9KSefnbFYldPJTEDZ/view?usp=drive_link 
+### To try out our app
+1. Download the apk from https://drive.google.com/file/d/18t3s_SJxAPk8smI6X2WL7aIRZurxjjh_/view?usp=drive_link
 2. Install it onto your android device and open the application
-

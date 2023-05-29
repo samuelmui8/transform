@@ -27,7 +27,7 @@ export const RegisterScreen: React.FC<props> = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // const user = userCredential.user;
-        navigation.navigate("Home");
+        navigation.navigate("Content");
       })
       .catch((error) => alert(error.message));
   };
