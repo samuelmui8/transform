@@ -19,3 +19,7 @@ Transform is a NUS orbital project that aims to improve the productivity of stud
 ### To export app as apk
 1. Run `npx eas build -p android --profile preview`
 
+#### To try out our app
+1. Download the apk from https://drive.google.com/file/d/1Y2eUA-rDjazgbq-9KSefnbFYldPJTEDZ/view?usp=drive_link 
+2. Install it onto your android device and open the application
+
