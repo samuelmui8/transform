@@ -20,7 +20,7 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
   if (user) {
     name = user.displayName;
   }
-
+ 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {

@@ -11,14 +11,35 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Task from "./TodoListSubcomponents/Task";
+import { db } from "../../FirebaseConfig";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove, DocumentReference } from "firebase/firestore";
+import { auth } from "../../FirebaseConfig";
 
 export const TodoList = () => {
+  let user = auth.currentUser;
+  let userDocRef: DocumentReference;
   const [task, setTask] = useState<string>();
   const [taskItems, setTaskItems] = useState<string[]>([]);
+
+  if (user) {
+    // get tasklist for user from firestore
+    userDocRef = doc(db, "users", user.uid);
+    getDoc(userDocRef).then(snap => {
+      if (snap.exists()) {
+        setTaskItems(snap.data().tasks);
+      } else {
+        // snap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    });
+  }
 
   const handleAddTask = () => {
     Keyboard.dismiss();
     if (task != undefined) {
+      updateDoc(userDocRef, {
+        tasks: arrayUnion(task)
+      });
       setTaskItems([...taskItems, task]);
       setTask(undefined);
     }
@@ -26,6 +47,9 @@ export const TodoList = () => {
 
   const completeTask = (index: number) => {
     let itemsCopy = [...taskItems];
+    updateDoc(userDocRef, {
+      tasks: arrayRemove(itemsCopy[index])
+    });
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);
   };

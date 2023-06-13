@@ -13,6 +13,8 @@ import {
 } from "firebase/auth";
 import { auth } from "../../FirebaseConfig";
 import { NavigationProp } from "@react-navigation/native";
+import { db } from "../../FirebaseConfig";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 
 type props = {
   navigation: NavigationProp<Record<string, any>>;
@@ -23,10 +25,20 @@ export const RegisterScreen: React.FC<props> = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
+
+
+  
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // const user = userCredential.user;
+        const user = userCredential.user;
+        // Create an initial document for user.
+        const userDocRef = doc(db, "users", user.uid);
+        setDoc(userDocRef, {
+          name: user.displayName,
+          tasks: [],
+          time: 0
+        });
         navigation.navigate("Content");
       })
       .catch((error) => alert(error.message));
