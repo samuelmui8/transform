@@ -9,6 +9,7 @@ import React from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../FirebaseConfig";
 import { NavigationProp } from "@react-navigation/native";
+import { ExperienceBar } from "../components/ExperienceBar/ExperienceBar";
 
 type props = {
   navigation: NavigationProp<Record<string, any>>;
@@ -20,7 +21,7 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
   if (user) {
     name = user.displayName;
   }
- 
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -43,6 +44,7 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
         >
           Home Page
         </Text>
+        <ExperienceBar exp={100} height={10} />
         <View
           style={{
             flexDirection: "row",
