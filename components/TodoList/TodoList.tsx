@@ -12,11 +12,19 @@ import {
 import React, { useState } from "react";
 import Task from "./TodoListSubcomponents/Task";
 import { db } from "../../FirebaseConfig";
-import { doc, getDoc, updateDoc, arrayUnion, arrayRemove, DocumentReference } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  DocumentReference,
+  increment,
+} from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
 
 export const TodoList = () => {
-  let user = auth.currentUser;
+  const user = auth.currentUser;
   let userDocRef: DocumentReference;
   const [task, setTask] = useState<string>();
   const [taskItems, setTaskItems] = useState<string[]>([]);
@@ -24,7 +32,7 @@ export const TodoList = () => {
   if (user) {
     // get tasklist for user from firestore
     userDocRef = doc(db, "users", user.uid);
-    getDoc(userDocRef).then(snap => {
+    getDoc(userDocRef).then((snap) => {
       if (snap.exists()) {
         setTaskItems(snap.data().tasks);
       } else {
@@ -38,7 +46,7 @@ export const TodoList = () => {
     Keyboard.dismiss();
     if (task != undefined) {
       updateDoc(userDocRef, {
-        tasks: arrayUnion(task)
+        tasks: arrayUnion(task),
       });
       setTaskItems([...taskItems, task]);
       setTask(undefined);
@@ -48,7 +56,8 @@ export const TodoList = () => {
   const completeTask = (index: number) => {
     let itemsCopy = [...taskItems];
     updateDoc(userDocRef, {
-      tasks: arrayRemove(itemsCopy[index])
+      tasks: arrayRemove(itemsCopy[index]),
+      exp: increment(10),
     });
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);

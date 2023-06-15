@@ -44,7 +44,6 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
         >
           Home Page
         </Text>
-        <ExperienceBar exp={100} height={10} />
         <View
           style={{
             flexDirection: "row",
@@ -56,7 +55,13 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
         >
           <Text>Welcome, {name} </Text>
         </View>
-
+        <View
+          style={{
+            paddingBottom: 10,
+          }}
+        >
+          <ExperienceBar height={10} />
+        </View>
         <TouchableOpacity
           onPress={handleLogout}
           style={{
