@@ -1,13 +1,9 @@
 import { View, Text, Animated, Keyboard } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  DocumentReference,
-  arrayUnion,
-  doc,
-  getDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { DocumentReference, arrayUnion, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../FirebaseConfig";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setInitalAmount } from "../../redux/expSlice";
 
 type props = {
   height: number;
@@ -16,18 +12,19 @@ type props = {
 export const ExperienceBar: React.FC<props> = ({ height }) => {
   const animatedValue = useRef(new Animated.Value(-1000)).current;
   const reactive = useRef(new Animated.Value(-1000)).current;
+  const dispatch = useAppDispatch();
   const [width, setWidth] = useState(0);
-  const [exp, setExp] = useState(0);
+  const { value } = useAppSelector((store) => store.exp);
 
   let user = auth.currentUser;
   let userDocRef: DocumentReference;
 
   if (user) {
-    // get tasklist for user from firestore
     userDocRef = doc(db, "users", user.uid);
     getDoc(userDocRef).then((snap) => {
       if (snap.exists()) {
-        setExp(snap.data().exp);
+        const currExp = snap.data().exp;
+        dispatch(setInitalAmount(currExp));
       } else {
         // snap.data() will be undefined in this case
         console.log("No such document!");
@@ -44,13 +41,13 @@ export const ExperienceBar: React.FC<props> = ({ height }) => {
   }, []);
 
   useEffect(() => {
-    reactive.setValue(-width + (width * (exp % 100)) / 100);
-  }, [exp, width]);
+    reactive.setValue(-width + (width * (value % 100)) / 100);
+  }, [value, width]);
 
   return (
     <>
-      <Text>LEVEL: {Math.floor(exp / 100)}</Text>
-      <Text>{exp} EXP</Text>
+      <Text>LEVEL: {Math.floor(value / 100)}</Text>
+      <Text>{value} EXP</Text>
       <View
         onLayout={(e) => {
           const newWidth = e.nativeEvent.layout.width;
@@ -81,7 +78,7 @@ export const ExperienceBar: React.FC<props> = ({ height }) => {
           }}
         />
       </View>
-      <Text>⚡{100 - (exp % 100)} MORE EXP TO THE NEXT LEVEL⚡</Text>
+      <Text>⚡{100 - (value % 100)} MORE EXP TO THE NEXT LEVEL⚡</Text>
     </>
   );
 };

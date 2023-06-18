@@ -3,7 +3,6 @@ import {
   Text,
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
   ScrollView,
   TextInput,
   TouchableOpacity,
@@ -22,10 +21,13 @@ import {
   increment,
 } from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
+import { useAppDispatch } from "../../redux/hooks";
+import { incrementByAmount } from "../../redux/expSlice";
 
 export const TodoList = () => {
   const user = auth.currentUser;
   let userDocRef: DocumentReference;
+  const dispatch = useAppDispatch();
   const [task, setTask] = useState<string>();
   const [taskItems, setTaskItems] = useState<string[]>([]);
 
@@ -59,6 +61,7 @@ export const TodoList = () => {
       tasks: arrayRemove(itemsCopy[index]),
       exp: increment(10),
     });
+    dispatch(incrementByAmount(10));
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);
   };

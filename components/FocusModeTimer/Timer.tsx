@@ -11,6 +11,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../../FirebaseConfig";
+import { useAppDispatch } from "../../redux/hooks";
+import { incrementByAmount } from "../../redux/expSlice";
 
 const defaultDuration = 20 * 60 * 1000;
 
@@ -21,6 +23,7 @@ export const Timer: React.FC = () => {
   const user = auth.currentUser;
 
   let userDocRef: DocumentReference;
+  const dispatch = useAppDispatch();
 
   if (user) {
     userDocRef = doc(db, "users", user.uid);
@@ -50,6 +53,7 @@ export const Timer: React.FC = () => {
       updateDoc(userDocRef, {
         exp: increment(timerCount),
       });
+      dispatch(incrementByAmount(timerCount));
       stopTimer();
     }
   }, [timerCount]);
