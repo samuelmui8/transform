@@ -25,9 +25,6 @@ export const RegisterScreen: React.FC<props> = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-
-
-  
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -37,7 +34,7 @@ export const RegisterScreen: React.FC<props> = ({ navigation }) => {
         setDoc(userDocRef, {
           name: user.displayName,
           tasks: [],
-          time: 0
+          exp: 0,
         });
         navigation.navigate("Content");
       })
