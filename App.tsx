@@ -1,5 +1,10 @@
-import AuthStack from "./screens/authentication/AuthStack";
+import NavStack from "./screens/NavStack";
+import { FitnessContext } from "./screens/Fitness/Context";
 
 export default function App() {
-  return <AuthStack />;
+  return (
+    <FitnessContext>
+      <NavStack />
+    </FitnessContext>
+  );
 }
