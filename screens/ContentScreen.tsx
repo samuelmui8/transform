@@ -5,6 +5,7 @@ import { TimerScreen } from "./TimerScreen";
 import { TodoListScreen } from "./TodoListScreen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { WelcomeScreen } from "./WelcomeScreen";
+import { FitnessHomeScreen } from "./Fitness/FitnessHomeScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,6 +16,7 @@ export const ContentScreen = () => {
         <Tab.Screen name="Todo List" component={TodoListScreen} />
         <Tab.Screen name="Welcome Page" component={WelcomeScreen} />
         <Tab.Screen name="Transform Timer" component={TimerScreen} />
+        <Tab.Screen name="Fitness" component={FitnessHomeScreen} />
       </Tab.Navigator>
     </SafeAreaProvider>
   );
