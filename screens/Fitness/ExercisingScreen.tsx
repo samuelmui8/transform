@@ -12,8 +12,11 @@ import {
   increment,
 } from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
+import { useAppDispatch } from "../../redux/hooks";
+import { incrementByAmount } from "../../redux/expSlice";
 
 export const ExercisingScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
   const user = auth.currentUser;
   let userDocRef: DocumentReference;
   if (user) {
@@ -100,14 +103,15 @@ export const ExercisingScreen: React.FC = () => {
               workout: increment(1),
               minutes: increment(2.5),
               calories: increment(6),
-              exp: increment(5)
+              exp: increment(5),
             });
             setWorkout(workout + 1);
             setMinutes(minutes + 2.5);
-            setCalories((calories + 6));
+            setCalories(calories + 6);
             setTimeout(() => {
               setIndex(index + 1);
             }, 2000);
+            dispatch(incrementByAmount(5));
           }}
           style={{
             backgroundColor: "blue",

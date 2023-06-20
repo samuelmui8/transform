@@ -1,8 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LoginScreen } from "./Authentication/LoginScreen";
-import { RegisterScreen } from "./Authentication/RegisterScreen";
+import { LoginScreen } from "./authentication/LoginScreen";
+import { RegisterScreen } from "./authentication/RegisterScreen";
 import { ContentScreen } from "./ContentScreen";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";

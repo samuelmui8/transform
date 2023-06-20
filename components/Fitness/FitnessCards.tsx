@@ -3,23 +3,35 @@ import { View, Text, StyleSheet, Pressable, Image } from "react-native";
 import Fitness from "../../data/Fitness";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { NavigatorScreenParams } from "@react-navigation/native";
+
+type FitnessItem = {
+  id: string;
+  image: string;
+  exercises: {
+    id: string;
+    image: string;
+    name: string;
+    sets: number;
+  }[];
+};
 
 const FitnessCards: React.FC = () => {
-  const FitnessData = Fitness;
+  const FitnessData: FitnessItem[] = Fitness;
   const navigation = useNavigation();
   return (
     <View>
-      {FitnessData.map((item, key) => (
+      {FitnessData.map((item) => (
         <Pressable
           onPress={() =>
             navigation.navigate("Workout", {
-              image: item.image,
-              exercises: item.excersises,
               id: item.id,
+              image: item.image,
+              exercises: item.exercises,
             })
           }
           style={{ alignItems: "center", justifyContent: "center", margin: 10 }}
-          key={key}
+          key={item.id}
         >
           <Image
             style={{ width: "95%", height: 140, borderRadius: 7 }}
