@@ -12,11 +12,10 @@ import {
   increment,
 } from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
-import { useAppDispatch } from "../../redux/hooks";
-import { incrementByAmount } from "../../redux/expSlice";
+// import { useAppDispatch } from "../../redux/hooks";
+// import { incrementByAmount } from "../../redux/expSlice";
 
 export const ExercisingScreen: React.FC = () => {
-  const dispatch = useAppDispatch();
   const user = auth.currentUser;
   let userDocRef: DocumentReference;
   if (user) {
@@ -111,7 +110,6 @@ export const ExercisingScreen: React.FC = () => {
             setTimeout(() => {
               setIndex(index + 1);
             }, 2000);
-            dispatch(incrementByAmount(5));
           }}
           style={{
             backgroundColor: "blue",
