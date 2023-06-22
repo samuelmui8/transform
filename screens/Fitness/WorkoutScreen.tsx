@@ -6,15 +6,17 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
-import React, { useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import { FitnessItems } from "./Context";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { resetCompleted } from "../../redux/fitnessSlice";
 
 export const WorkoutScreen: React.FC = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { completed, setCompleted } = useContext(FitnessItems);
+  const dispatch = useAppDispatch();
+  const { completed } = useAppSelector((store) => store.fitness);
+
   return (
     <>
       <ScrollView
@@ -62,8 +64,10 @@ export const WorkoutScreen: React.FC = () => {
 
       <Pressable
         onPress={() => {
-          navigation.navigate("Exercising", { exercises: route.params.exercises });
-          setCompleted([]);
+          navigation.navigate("Exercising", {
+            exercises: route.params.exercises,
+          });
+          dispatch(resetCompleted);
         }}
         style={{
           backgroundColor: "blue",

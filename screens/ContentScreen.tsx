@@ -9,7 +9,7 @@ import { FitnessHomeScreen } from "./Fitness/FitnessHomeScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
-export const ContentScreen: React.FC = () => {
+export const ContentScreen = () => {
   return (
     <SafeAreaProvider>
       <Tab.Navigator initialRouteName="Welcome Page" style={styles.navBar}>

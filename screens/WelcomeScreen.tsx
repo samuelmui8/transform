@@ -1,15 +1,13 @@
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  StatusBar,
-} from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { signOut } from "firebase/auth";
-import { auth } from "../FirebaseConfig";
+import { auth, db } from "../FirebaseConfig";
 import { NavigationProp } from "@react-navigation/native";
 import { ExperienceBar } from "../components/ExperienceBar/ExperienceBar";
+import { DocumentReference, doc, getDoc } from "firebase/firestore";
+import { initWorkout, initMinutes, initCalories } from "../redux/fitnessSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { setInitalAmount } from "../redux/expSlice";
 
 type props = {
   navigation: NavigationProp<Record<string, any>>;
@@ -18,6 +16,8 @@ type props = {
 export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
   let name;
   const user = auth.currentUser;
+  let userDocRef: DocumentReference;
+  const dispatch = useAppDispatch();
   if (user) {
     name = user.displayName;
   }
@@ -30,6 +30,22 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
       })
       .catch((error) => alert(error.message));
   };
+
+  if (user) {
+    // get tasklist for user from firestore
+    userDocRef = doc(db, "users", user.uid);
+    getDoc(userDocRef).then((snap) => {
+      if (snap.exists()) {
+        dispatch(initWorkout(snap.data().workout));
+        dispatch(initCalories(snap.data().calories));
+        dispatch(initMinutes(snap.data().minutes));
+        dispatch(setInitalAmount(snap.data().exp));
+      } else {
+        // snap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    });
+  }
 
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>

@@ -1,19 +1,23 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FitnessItems } from "./Context";
 import { db } from "../../FirebaseConfig";
 import {
   doc,
-  getDoc,
   updateDoc,
   DocumentReference,
   increment,
 } from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
-// import { useAppDispatch } from "../../redux/hooks";
-// import { incrementByAmount } from "../../redux/expSlice";
+import {
+  setCompleted,
+  setWorkout,
+  setMinutes,
+  setCalories,
+} from "../../redux/fitnessSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { incrementByAmount } from "../../redux/expSlice";
 
 export const ExercisingScreen: React.FC = () => {
   const user = auth.currentUser;
@@ -27,17 +31,12 @@ export const ExercisingScreen: React.FC = () => {
   const [index, setIndex] = useState(0);
   const exercises = route.params.exercises;
   const current = exercises[index];
-  const {
-    completed,
-    setCompleted,
-    minutes,
-    setMinutes,
-    calories,
-    setCalories,
-    setWorkout,
-    workout,
-  } = useContext(FitnessItems);
-  // console.log(completed, "completed excersise");
+  const dispatch = useAppDispatch();
+  const { minutes } = useAppSelector((store) => store.fitness);
+  const { calories } = useAppSelector((store) => store.fitness);
+  const { workout } = useAppSelector((store) => store.fitness);
+  const { value } = useAppSelector((store) => store.exp);
+
   return (
     <SafeAreaView>
       <Image
@@ -70,6 +69,12 @@ export const ExercisingScreen: React.FC = () => {
       {index + 1 >= exercises.length ? (
         <Pressable
           onPress={() => {
+            updateDoc(userDocRef, {
+              workout: workout,
+              minutes: minutes,
+              calories: calories,
+              exp: value,
+            });
             navigation.navigate("Content");
           }}
           style={{
@@ -97,16 +102,11 @@ export const ExercisingScreen: React.FC = () => {
         <Pressable
           onPress={() => {
             navigation.navigate("Rest");
-            setCompleted([...completed, current.name]);
-            updateDoc(userDocRef, {
-              workout: increment(1),
-              minutes: increment(2.5),
-              calories: increment(6),
-              exp: increment(5),
-            });
-            setWorkout(workout + 1);
-            setMinutes(minutes + 2.5);
-            setCalories(calories + 6);
+            dispatch(setCompleted(current.name));
+            dispatch(setWorkout(1));
+            dispatch(setMinutes(2.5));
+            dispatch(setCalories(6));
+            dispatch(incrementByAmount(5));
             setTimeout(() => {
               setIndex(index + 1);
             }, 2000);
