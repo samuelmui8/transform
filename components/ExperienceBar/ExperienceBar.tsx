@@ -12,25 +12,8 @@ type props = {
 export const ExperienceBar: React.FC<props> = ({ height }) => {
   const animatedValue = useRef(new Animated.Value(-1000)).current;
   const reactive = useRef(new Animated.Value(-1000)).current;
-  const dispatch = useAppDispatch();
   const [width, setWidth] = useState(0);
   const { value } = useAppSelector((store) => store.exp);
-
-  let user = auth.currentUser;
-  let userDocRef: DocumentReference;
-
-  if (user) {
-    userDocRef = doc(db, "users", user.uid);
-    getDoc(userDocRef).then((snap) => {
-      if (snap.exists()) {
-        const currExp = snap.data().exp;
-        dispatch(setInitalAmount(currExp));
-      } else {
-        // snap.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    });
-  }
 
   useEffect(() => {
     Animated.timing(animatedValue, {

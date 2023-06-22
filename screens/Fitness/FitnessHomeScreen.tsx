@@ -1,14 +1,11 @@
 import { View, Text, ScrollView, Image } from "react-native";
-import React, {useContext} from "react";
 import FitnessCards from "../../components/Fitness/FitnessCards";
-import { FitnessItems } from "./Context";
+import { useAppSelector } from "../../redux/hooks";
 
 export const FitnessHomeScreen: React.FC = () => {
-  const {
-    minutes,
-    calories,
-    workout,
-  } = useContext(FitnessItems);
+  const { minutes } = useAppSelector((store) => store.fitness);
+  const { calories } = useAppSelector((store) => store.fitness);
+  const { workout } = useAppSelector((store) => store.fitness);
 
   return (
     <ScrollView
@@ -24,28 +21,70 @@ export const FitnessHomeScreen: React.FC = () => {
           width: "100%",
         }}
       >
-        <Text style={{
-          color: "white",
-          fontWeight: "bold",
-          fontSize: 18
-        }}>HOME WORKOUT</Text>
+        <Text
+          style={{
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 18,
+          }}
+        >
+          HOME WORKOUT
+        </Text>
 
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
           <View>
-            <Text style={{ textAlign: "center", fontWeight: "bold", color: "white", fontSize: 18 }}>{workout}</Text>
-            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>EXERCISES</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 18,
+              }}
+            >
+              {workout}
+            </Text>
+            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>
+              EXERCISES
+            </Text>
           </View>
 
-
           <View>
-            <Text style={{ textAlign: "center", fontWeight: "bold", color: "white", fontSize: 18 }}>{calories}</Text>
-            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>KCAL</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 18,
+              }}
+            >
+              {calories}
+            </Text>
+            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>
+              KCAL
+            </Text>
           </View>
 
-
           <View>
-            <Text style={{ textAlign: "center", fontWeight: "bold", color: "white", fontSize: 18 }}>{minutes}</Text>
-            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>MINS</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 18,
+              }}
+            >
+              {minutes}
+            </Text>
+            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>
+              MINS
+            </Text>
           </View>
         </View>
 
@@ -62,7 +101,6 @@ export const FitnessHomeScreen: React.FC = () => {
             }}
           />
         </View>
-
       </View>
       <View
         style={{
@@ -73,9 +111,6 @@ export const FitnessHomeScreen: React.FC = () => {
       >
         <FitnessCards />
       </View>
-
-
     </ScrollView>
-
   );
 };

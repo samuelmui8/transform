@@ -1,10 +1,6 @@
 import React, { createContext, useState } from "react";
 import { db } from "../../FirebaseConfig";
-import {
-  doc,
-  getDoc,
-  DocumentReference,
-} from "firebase/firestore";
+import { doc, getDoc, DocumentReference } from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
 
 const FitnessItems = createContext(NaN);
@@ -12,6 +8,11 @@ const FitnessItems = createContext(NaN);
 const FitnessContext = ({ children }) => {
   const user = auth.currentUser;
   let userDocRef: DocumentReference;
+  const [completed, setCompleted] = useState([]);
+  const [workout, setWorkout] = useState(0);
+  const [calories, setCalories] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+
   if (user) {
     // get tasklist for user from firestore
     userDocRef = doc(db, "users", user.uid);
@@ -26,10 +27,6 @@ const FitnessContext = ({ children }) => {
       }
     });
   }
-  const [completed, setCompleted] = useState([]);
-  const [workout, setWorkout] = useState(0);
-  const [calories, setCalories] = useState(0);
-  const [minutes, setMinutes] = useState(0);
   return (
     <FitnessItems.Provider
       value={{
