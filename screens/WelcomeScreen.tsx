@@ -41,7 +41,6 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
         dispatch(initMinutes(snap.data().minutes));
         dispatch(setInitalAmount(snap.data().exp));
       } else {
-        // snap.data() will be undefined in this case
         console.log("No such document!");
       }
     });

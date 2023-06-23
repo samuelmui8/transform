@@ -31,10 +31,10 @@ export const fitnessSlice = createSlice({
       state.calories = action.payload;
     },
     initWorkout: (state, action: PayloadAction<number>) => {
-      state.calories = action.payload;
+      state.workout = action.payload;
     },
     initMinutes: (state, action: PayloadAction<number>) => {
-      state.calories = action.payload;
+      state.minutes = action.payload;
     },
     setCalories: (state, action: PayloadAction<number>) => {
       state.calories = action.payload;
