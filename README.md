@@ -6,10 +6,11 @@ Github Link: https://github.com/samuelmui8/transform
 - [x] Login and Authentication (Milestone 1)
 - [x] To-do List (Milestone 1)
 - [x] Focus Mode Timer (Milestone 1)
-- [ ] Nutrition & Fitness Tracker
+- [x] Fitness Tracker
+- [x] Achievements
+- [ ] Nutrition Tracker
 - [ ] Calender
 - [ ] Social Aspects
-- [ ] Achievements
 - [ ] Widgets
 
 ## Getting Started
