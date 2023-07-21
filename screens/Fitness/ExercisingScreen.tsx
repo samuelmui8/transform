@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import React, { useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../../FirebaseConfig";
-import {
-  doc,
-  updateDoc,
-  DocumentReference,
-  increment,
-} from "firebase/firestore";
+import { doc, updateDoc, DocumentReference } from "firebase/firestore";
 import { auth } from "../../FirebaseConfig";
 import {
   setCompleted,
@@ -18,6 +17,10 @@ import {
 } from "../../redux/fitnessSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { incrementByAmount } from "../../redux/expSlice";
+
+type props = {
+  navigation: NavigationProp<Record<string, any>>;
+};
 
 export const ExercisingScreen: React.FC = () => {
   const user = auth.currentUser;
@@ -69,6 +72,11 @@ export const ExercisingScreen: React.FC = () => {
       {index + 1 >= exercises.length ? (
         <Pressable
           onPress={() => {
+            dispatch(setCompleted(current.name));
+            dispatch(setWorkout(1));
+            dispatch(setMinutes(2.5));
+            dispatch(setCalories(6));
+            dispatch(incrementByAmount(5));
             updateDoc(userDocRef, {
               workout: workout,
               minutes: minutes,
