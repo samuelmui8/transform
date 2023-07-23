@@ -7,7 +7,6 @@ export const LeaderBoardList: React.FC = () => {
   const { leaderboardInfo } = useAppSelector((store) => store.follow);
   return (
     <View>
-      <DisplayCard user2={{ username: "bfkewbkvbekjrv", userexp: 300 }} />
       <FlatList>
         data={leaderboardInfo}
         renderItem=
