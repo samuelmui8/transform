@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import expReducer from "./expSlice";
 import fitnessReducer from "./fitnessSlice";
+import followingReducer from "./followSlice";
 
 export const store = configureStore({
   reducer: {
     exp: expReducer,
     fitness: fitnessReducer,
+    follow: followingReducer,
   },
 });
 
