@@ -87,7 +87,7 @@ export const SearchCard: React.FC<Props> = ({ user }) => {
         style={styles.button}
         onPress={() => {
           console.log("presseddddd");
-          amFollowing ? () => add : remove;
+          amFollowing ? add : remove;
           console.log("beiwbvkebrverb");
         }}
       >
