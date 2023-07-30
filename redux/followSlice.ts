@@ -1,26 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { db } from "../FirebaseConfig";
 
 // Define a type for the slice state
 interface followState {
   following: string[];
-  leaderboardInfo: any[];
 }
 
 // Define the initial state using that type
 const initialState: followState = {
   following: [],
-  leaderboardInfo: [],
 };
 
 export const followSlice = createSlice({
@@ -29,11 +18,8 @@ export const followSlice = createSlice({
   initialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setInitalFollowing: (state, action: PayloadAction<string[]>) => {
+    setInitialFollowing: (state, action: PayloadAction<string[]>) => {
       state.following = action.payload;
-    },
-    updateLeaderBoard: (state, action: PayloadAction<any[]>) => {
-      state.leaderboardInfo = action.payload;
     },
     addToFollowing: (state, action: PayloadAction<string>) => {
       const userId = action.payload;
@@ -49,12 +35,8 @@ export const followSlice = createSlice({
   },
 });
 
-export const {
-  setInitalFollowing,
-  addToFollowing,
-  removeFromFollowing,
-  updateLeaderBoard,
-} = followSlice.actions;
+export const { setInitialFollowing, addToFollowing, removeFromFollowing } =
+  followSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectFollowing = (state: RootState) => state.follow.following;

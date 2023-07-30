@@ -9,11 +9,12 @@ import { RestScreen } from "./screens/Fitness/RestScreen";
 import { WorkoutScreen } from "./screens/Fitness/WorkoutScreen";
 import { LoginScreen } from "./screens/authentication/LoginScreen";
 import { RegisterScreen } from "./screens/authentication/RegisterScreen";
-import { CalendarScreen } from "./screens/CalendarScreen";
+import { fetchLeaderboard } from "./redux/leaderboardSlice";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  store.dispatch(fetchLeaderboard());
   return (
     <NavigationContainer>
       <Provider store={store}>
@@ -21,6 +22,10 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Content" component={ContentScreen} />
+          <Stack.Screen name="FitnessHome" component={FitnessHomeScreen} />
+          <Stack.Screen name="Workout" component={WorkoutScreen} />
+          <Stack.Screen name="Exercising" component={ExercisingScreen} />
+          <Stack.Screen name="Rest" component={RestScreen} />
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

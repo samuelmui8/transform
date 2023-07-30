@@ -1,16 +1,18 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 
-type Props = {
-  user2: any;
-};
-
-export const DisplayCard: React.FC<Props> = ({ user2 }) => {
-  const userLevel = user2.userexp / 100;
+interface user {
+  username: string;
+  userexp: number;
+  userid: string;
+}
+export const DisplayCard = ({ user }: { user: user }) => {
+  const userLevel = Math.floor(user.userexp / 100);
   return (
-    <View>
-      <Text>{user2.username}</Text>
-      <Text>{userLevel}</Text>
+    <View style={styles.button}>
+      <Text>{user.username}</Text>
+      <Text>{"LEVEL: " + userLevel}</Text>
+      <Text>{"EXP: " + user.userexp}</Text>
     </View>
   );
 };

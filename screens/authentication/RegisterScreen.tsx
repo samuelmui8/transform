@@ -38,7 +38,7 @@ export const RegisterScreen: React.FC<props> = ({ navigation }) => {
           workout: 0,
           calories: 0,
           minutes: 0,
-          following: [],
+          following: [user.uid],
           id: user.uid,
         });
         navigation.navigate("Content");

@@ -21,7 +21,7 @@ export const RestScreen: React.FC = () => {
     startTime();
     //clean up
     return () => clearTimeout(timer);
-  }, []);
+  });
   return (
     <SafeAreaView>
       <Image

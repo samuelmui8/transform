@@ -1,94 +1,62 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addToFollowing, removeFromFollowing } from "../../redux/followSlice";
 import {
-  addToFollowing,
-  removeFromFollowing,
-  updateLeaderBoard,
-} from "../../redux/followSlice";
-import {
-  collection,
+  DocumentReference,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
   doc,
   getDoc,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  where,
 } from "firebase/firestore";
-import { db } from "../../FirebaseConfig";
+import { auth, db } from "../../FirebaseConfig";
+
+interface LeaderBoardItem {
+  username: string;
+  userexp: number;
+  userid: string;
+}
 
 type Props = {
-  user: any;
+  person: LeaderBoardItem;
 };
 
-export const SearchCard: React.FC<Props> = ({ user }) => {
-  const { following } = useAppSelector((store) => store.follow);
-  const amFollowing = following.includes(user.userid);
+export const SearchCard: React.FC<Props> = ({ person }) => {
   const dispatch = useAppDispatch();
+  const userId = person.userid;
+  const { following } = useAppSelector((store) => store.follow);
+  const amFollowing = following.includes(person.userid);
+  const user = auth.currentUser;
+  let userDocRef: DocumentReference;
+  if (user) {
+    userDocRef = doc(db, "users", user.uid);
+  }
 
   const add = () => {
-    dispatch(removeFromFollowing(user.userid));
-    const leaderBoard: any[] = [];
-    console.log(following);
-    for (const userId of following) {
-      const usersRef = collection(db, "users");
-      const q = query(
-        usersRef,
-        where("id", "==", userId)
-        // orderBy("exp", "desc")
-      );
-      getDocs(q).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          leaderBoard.push({
-            username: doc.data().name,
-            userexp: doc.data().exp,
-          });
-          // console.log(doc.id, " => ", doc.data().name);
-          // console.log(friends);
-        });
+    dispatch(addToFollowing(userId));
+    if (userId != undefined) {
+      updateDoc(userDocRef, {
+        following: arrayUnion(userId),
       });
     }
-    dispatch(updateLeaderBoard(leaderBoard));
-    console.log(leaderBoard);
-    console.log("completedeeeeeeeeeeeeee");
   };
 
   const remove = () => {
-    dispatch(addToFollowing(user.userid));
-    const leaderBoard: any[] = [];
-    console.log(leaderBoard);
-    for (const userId of following) {
-      const usersRef = collection(db, "users");
-      const q = query(
-        usersRef,
-        where("id", "==", userId)
-        // orderBy("exp", "desc")
-      );
-      getDocs(q).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          leaderBoard.push({
-            username: doc.data().name,
-            userexp: doc.data().exp,
-          });
-        });
+    dispatch(removeFromFollowing(userId));
+    if (userId != undefined) {
+      updateDoc(userDocRef, {
+        following: arrayRemove(userId),
       });
     }
-    dispatch(updateLeaderBoard(leaderBoard));
-    console.log(leaderBoard);
-    console.log("completed");
   };
 
   return (
     <View>
-      <Text style={styles.text}>{user.username}</Text>
+      <Text style={styles.text}>{person.username}</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          console.log("presseddddd");
-          amFollowing ? add : remove;
-          console.log("beiwbvkebrverb");
+          amFollowing ? remove() : add();
         }}
       >
         <Text style={styles.text}>{amFollowing ? "Unfollow" : "Follow"}</Text>

@@ -8,7 +8,7 @@ import { DocumentReference, doc, getDoc } from "firebase/firestore";
 import { initWorkout, initMinutes, initCalories } from "../redux/fitnessSlice";
 import { useAppDispatch } from "../redux/hooks";
 import { setInitalAmount } from "../redux/expSlice";
-import { setInitalFollowing, updateLeaderBoard } from "../redux/followSlice";
+import { setInitialFollowing } from "../redux/followSlice";
 
 type props = {
   navigation: NavigationProp<Record<string, any>>;
@@ -41,8 +41,7 @@ export const WelcomeScreen: React.FC<props> = ({ navigation }) => {
         dispatch(initCalories(snap.data().calories));
         dispatch(initMinutes(snap.data().minutes));
         dispatch(setInitalAmount(snap.data().exp));
-        dispatch(setInitalFollowing(snap.data().following));
-        dispatch(updateLeaderBoard(snap.data().following));
+        dispatch(setInitialFollowing(snap.data().following));
       } else {
         console.log("No such document!");
       }
