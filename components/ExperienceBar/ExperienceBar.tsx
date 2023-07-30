@@ -1,9 +1,6 @@
-import { View, Text, Animated, Keyboard } from "react-native";
+import { View, Text, Animated } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { DocumentReference, arrayUnion, doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../FirebaseConfig";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setInitalAmount } from "../../redux/expSlice";
+import { useAppSelector } from "../../redux/hooks";
 
 type props = {
   height: number;

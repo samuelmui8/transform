@@ -10,26 +10,15 @@ import {
   doc,
   getDocs,
 } from "firebase/firestore";
+import { LeaderBoardList } from "../components/LeaderBoard/LeaderBoardList";
+import { useAppSelector } from "../redux/hooks";
 
-export const LeaderboardScren: React.FC = () => {
+export const LeaderboardScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
   const usersRef = collection(db, "users");
-
-  const friends : string[] = [];
-  const q = query(usersRef, orderBy("exp", "desc"), limit(3));
-  getDocs(q).then(querySnapshot => {
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        friends.push(doc.data().name)
-        console.log(doc.id, " => ", doc.data().name);
-        console.log(friends);
-      });
-  })
-  
-  
+  const { leaderboardInfo } = useAppSelector((store) => store.leaderboard);
 
   return (
-    
     <View
       style={{
         flex: 1,
@@ -38,14 +27,7 @@ export const LeaderboardScren: React.FC = () => {
         paddingRight: insets.right,
       }}
     >
-        {/* array empty for some reason */}
-        {friends.map((item, index) => {
-              return (
-                <Text>
-                    {item}
-                </Text>
-              );
-            })}
+      <LeaderBoardList />
     </View>
   );
 };

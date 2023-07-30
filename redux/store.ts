@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import expReducer from "./expSlice";
 import fitnessReducer from "./fitnessSlice";
+import followingReducer from "./followSlice";
+import leaderboardReducer from "./leaderboardSlice";
 
 export const store = configureStore({
   reducer: {
     exp: expReducer,
     fitness: fitnessReducer,
+    follow: followingReducer,
+    leaderboard: leaderboardReducer,
   },
 });
 
