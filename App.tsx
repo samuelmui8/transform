@@ -12,9 +12,7 @@ import { RegisterScreen } from "./screens/authentication/RegisterScreen";
 import { fetchLeaderboard } from "./redux/leaderboardSlice";
 
 const Stack = createNativeStackNavigator();
-
 export default function App() {
-  store.dispatch(fetchLeaderboard());
   return (
     <NavigationContainer>
       <Provider store={store}>
