@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperienceBar should match the snapshot 1`] = `
+[
+  <Text>
+    LEVEL: 
+    NaN
+  </Text>,
+  <Text>
+     EXP
+  </Text>,
+  <View
+    onLayout={[Function]}
+    style={
+      {
+        "backgroundColor": "white",
+        "borderRadius": 40,
+        "height": 40,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      collapsable={false}
+      style={
+        {
+          "backgroundColor": "red",
+          "borderRadius": 40,
+          "height": 40,
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "transform": [
+            {
+              "translateX": -1000,
+            },
+          ],
+          "width": "100%",
+        }
+      }
+    />
+  </View>,
+  <Text>
+    ⚡
+    NaN
+     MORE EXP TO THE NEXT LEVEL⚡
+  </Text>,
+]
+`;
