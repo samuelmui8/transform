@@ -34,6 +34,7 @@ export const RegisterScreen: React.FC<props> = ({ navigation }) => {
         setDoc(userDocRef, {
           name: user.displayName,
           tasks: [],
+          items: [],
           exp: 0,
           workout: 0,
           calories: 0,
