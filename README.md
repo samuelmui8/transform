@@ -3,14 +3,14 @@ Transform is a NUS orbital project that aims to improve the productivity of stud
 Github Link: https://github.com/samuelmui8/transform
 
 ## Features
-- [x] Login and Authentication (Milestone 1)
-- [x] To-do List (Milestone 1)
-- [x] Focus Mode Timer (Milestone 1)
-- [x] Fitness Tracker (Milestone 2)
-- [x] Achievements (Milestone 2)
+- [x] Login and Authentication
+- [x] To-do List
+- [x] Focus Mode Timer
+- [x] Fitness Tracker
+- [x] Achievements
+- [x] Social Aspects (includes Search and Leaderboard)
 - [ ] Nutrition Tracker
 - [ ] Calender
-- [ ] Social Aspects
 - [ ] Widgets
 
 ## Getting Started
