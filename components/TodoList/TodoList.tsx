@@ -46,7 +46,7 @@ export const TodoList = () => {
 
   const handleAddTask = () => {
     Keyboard.dismiss();
-    if (task != undefined) {
+    if (task != undefined && userDocRef) {
       updateDoc(userDocRef, {
         tasks: arrayUnion(task),
       });
@@ -74,6 +74,7 @@ export const TodoList = () => {
           flexGrow: 1,
         }}
         keyboardShouldPersistTaps="handled"
+        testID="tasks-wrapper"
       >
         {/* Today's Tasks */}
         <View style={styles.tasksWrapper}>
@@ -102,8 +103,9 @@ export const TodoList = () => {
           placeholder={"Write a task"}
           value={task}
           onChangeText={(text) => setTask(text)}
+          testID="write-task-wrapper"
         />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity onPress={() => handleAddTask()} testID="add-button">
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>

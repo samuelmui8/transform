@@ -14,7 +14,7 @@ import { auth, db } from "../../FirebaseConfig";
 import { useAppDispatch } from "../../redux/hooks";
 import { incrementByAmount } from "../../redux/expSlice";
 
-const defaultDuration = 20 * 60 * 1000;
+export const defaultDuration = 20 * 60 * 1000;
 
 export const Timer: React.FC = () => {
   const [timerCount, setTimerCount] = useState<number>(defaultDuration);
@@ -22,7 +22,7 @@ export const Timer: React.FC = () => {
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const user = auth.currentUser;
 
-  let userDocRef: DocumentReference;
+  let userDocRef: DocumentReference | undefined;
   const dispatch = useAppDispatch();
 
   if (user) {
@@ -50,13 +50,15 @@ export const Timer: React.FC = () => {
 
   useEffect(() => {
     if (timerCount === 0) {
-      updateDoc(userDocRef, {
-        exp: increment(timerCount),
-      });
-      dispatch(incrementByAmount(timerCount));
+      if (userDocRef) {
+        updateDoc(userDocRef, {
+          exp: increment(timerCount / 1000),
+        });
+      }
+      dispatch(incrementByAmount(timerCount / 1000));
       stopTimer();
     }
-  }, [timerCount]);
+  }, [timerCount, userDocRef]);
 
   return (
     <View style={styles.container}>

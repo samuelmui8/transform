@@ -4,7 +4,7 @@ import { ExperienceBar } from "../ExperienceBar";
 
 // Mock the useAppSelector hook from redux
 jest.mock("../../../redux/hooks.ts", () => ({
-  useAppSelector: jest.fn((selector) => selector({ exp: 50 })), // Replace the '50' with a value for testing
+  useAppSelector: jest.fn((selector) => selector({ exp: 70 })), // Replace the '50' with a value for testing
 }));
 
 describe("ExperienceBar", () => {
